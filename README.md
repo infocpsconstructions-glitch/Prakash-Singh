@@ -54,7 +54,18 @@
         <p>Type a keyword (e.g., "ATM", "Bank", "Identity") to find information.</p>
     </header>
 
-    <input type="text" id="searchBar" onkeyup="searchFraud()" placeholder="Search fraud types, keywords, or laws...">
+    <!-- The Search Bar -->
+<input type="text" id="searchBar" onkeyup="searchFraud()" placeholder="Search fraud types, keywords, or laws...">
+
+<!-- The List to search through -->
+<ul id="fraudList">
+  <li>Phishing</li>
+  <li>Identity Theft</li>
+  <li>Wire Fraud (Law 18 U.S.C. § 1343)</li>
+  <li>Credit Card Fraud</li>
+  <li>Ponzi Schemes</li>
+</ul>
+
 
     <div id="infoList">
         <!-- Content from the PDF -->
