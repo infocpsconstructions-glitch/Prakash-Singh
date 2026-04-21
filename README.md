@@ -28,7 +28,7 @@
 <main id="content-area"></main>
 
 <footer>
-    <p>&copy; 2024 Project Presentation</p>
+    <p>&copy; 2026 Project Presentation</p>
 </footer>
 
 <script>
