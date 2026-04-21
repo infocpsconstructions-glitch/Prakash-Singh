@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud & Law Directory</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 900px; margin: auto; }
+        h1 { text-align: center; color: #1a2a6c; }
+        p.subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+
+        /* Fraud Section */
+        .fraud-entry { background: white; margin-bottom: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #1a2a6c; }
+        .fraud-header { padding: 20px; }
+        .fraud-header h3 { margin: 0 0 10px 0; color: #e74c3c; }
+        
+        /* Law Button */
+        .law-btn { background: #3498db; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .law-btn:hover { background: #2980b9; }
+
+        /* Law Content (Hidden by default) */
+        .law-info { display: none; background: #f9f9f9; padding: 20px; border-top: 1px solid #ddd; border-left: 5px solid #27ae60; }
+        .law-info h4 { margin: 0 0 5px 0; color: #27ae60; }
+        .punishment { color: #c0392b; font-weight: bold; margin-top: 10px; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Financial Fraud & Legal Provisions</h1>
+    <p class="subtitle">Select a fraud type to view the corresponding Indian laws and punishments.</p>
+
+    <!-- Entry 1 -->
+    <div class="fraud-entry">
+        <div class="fraud-header">
+            <h3>1. Identity Theft & Personation</h3>
+            <p>Using someone's electronic signature, password, or unique identification feature fraudulently.</p>
+            <button class="law-btn" onclick="toggleLaw('law1')">See Legal Provision ↓</button>
+        </div>
+        <div id="law1" class="law-info">
+            <h4>IT Act, 2000 - Section 66C & 66D</h4>
+            <p>Deals with punishment for identity theft and cheating by personation using computer resources.</p>
+            <span class="punishment">Punishment: Up to 3 years imprisonment and fine up to ₹1 Lakh.</span>
+        </div>
+    </div>
+
+    <!-- Entry 2 -->
+    <div class="fraud-entry">
+        <div class="fraud-header">
+            <h3>2. Corporate Fraud</h3>
+            <p>Falsification or hiding of a company's financial information to make illegal profits or mislead the public.</p>
+            <button class="law-btn" onclick="toggleLaw('law2')">See Legal Provision ↓</button>
+        </div>
+        <div id="law2" class="law-info">
+            <h4>Companies Act, 2013 - Section 447</h4>
+            <p>Strict provisions for any person found guilty of fraud involving company affairs or public interest.</p>
+            <span class="punishment">Punishment: 6 months to 10 years imprisonment + Fine up to 3x the fraud amount.</span>
+        </div>
+    </div>
+
+    <!-- Entry 3 -->
+    <div class="fraud-entry">
+        <div class="fraud-header">
+            <h3>3. General Cheating (Ponzi/UPI/KYC)</h3>
+            <p>Inducing a person to deliver property or money through deception or dishonest intention.</p>
+            <button class="law-btn" onclick="toggleLaw('law3')">See Legal Provision ↓</button>
+        </div>
+        <div id="law3" class="law-info">
+            <h4>Indian Penal Code (IPC) - Section 420</h4>
+            <p>The primary law for "Cheating and dishonestly inducing delivery of property."</p>
+            <span class="punishment">Punishment: Up to 7 years imprisonment and a fine.</span>
+        </div>
+    </div>
+
+    <!-- Entry 4 -->
+    <div class="fraud-entry">
+        <div class="fraud-header">
+            <h3>4. Money Laundering</h3>
+            <p>Disguising the origins of money obtained illegally to make it appear legitimate.</p>
+            <button class="law-btn" onclick="toggleLaw('law4')">See Legal Provision ↓</button>
+        </div>
+        <div id="law4" class="law-info">
+            <h4>Prevention of Money Laundering Act, 2002 - Section 4</h4>
+            <p>Provides for the punishment of anyone involved in any process or activity connected with the proceeds of crime.</p>
+            <span class="punishment">Punishment: 3 to 7 years rigorous imprisonment and a fine.</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleLaw(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            // Close other open laws first (optional)
+            var allLaws = document.getElementsByClassName("law-info");
+            for (var i = 0; i < allLaws.length; i++) {
+                allLaws[i].style.display = "none";
+            }
+            x.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
