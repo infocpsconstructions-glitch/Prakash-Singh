@@ -3,6 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudInfo | Searchable Database</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        
+        /* Search Box */
+        #searchBar {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #2c3e50;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        /* Information Cards */
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: block; /* Hidden via JS if doesn't match search */
+            transition: 0.3s;
+        }
+
+        .info-card h3 { color: #e74c3c; margin-top: 0; }
+        .tag { 
+            display: inline-block; 
+            background: #eee; 
+            padding: 2px 10px; 
+            border-radius: 10px; 
+            font-size: 12px; 
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .highlight { background-color: yellow; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Financial Fraud Database</h1>
+        <p>Type a keyword (e.g., "ATM", "Bank", "Identity") to find information.</p>
+    </header>
+
+    <input type="text" id="searchBar" onkeyup="searchFraud()" placeholder="Search fraud types, keywords, or laws...">
+
+    <div id="infoList">
+        <!-- Content from the PDF -->
+        <div class="info-card">
+            <span class="tag">Type 4.1</span>
+            <h3>Ponzi Schemes</h3>
+            <p>Investment fraud that generates returns for earlier investors with money taken from later investors. Promises high returns with little risk.</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Type 4.3</span>
+            <h3>Identity Theft</h3>
+            <p>Use of someone's identifying information without permission. Includes shoulder-surfing at ATMs or phishing for bank account numbers.</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Type 4.8</span>
+            <h3>KYC Fraud</h3>
+            <p>Fraudsters send SMS saying your card/account will be blocked. They trick you into giving OTPs or installing apps for "verification."</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Type 4.14</span>
+            <h3>UPI-related Frauds</h3>
+            <p>Involves "request money" links or fake URLs that infect phones with malware to steal financial information.</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Law: Section 420</span>
+            <h3>Cheating & Dishonesty</h3>
+            <p>Under the Indian Penal Code: Punishment includes imprisonment for a term which may extend to 7 years and a fine.</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Protection</span>
+            <h3>Password Security</h3>
+            <p>Use strong passwords with multi-factor authentication (MFA). Never click on suspicious pop-ups or links.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchFraud() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let cards = document.getElementsByClassName('info-card');
+
+        for (let i = 0; i < cards.length; i++) {
+            let text = cards[i].innerText.toLowerCase();
+            if (text.includes(input)) {
+                cards[i].style.display = "block";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Scams in India</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #f4f4f9; color: #333; }
