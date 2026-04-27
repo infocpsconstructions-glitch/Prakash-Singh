@@ -1,3 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multilingual Fraud Database</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        .card { background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
+        #google_translate_element { margin-bottom: 20px; padding: 10px; background: #eee; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>🇮🇳 Indian Fraud Awareness Portal</h1>
+    
+    <!-- One-Click Translation Widget -->
+    <div id="google_translate_element"></div>
+
+    <div class="card">
+        <h3>1992 Stock Market Scam</h3>
+        <p>Involved Harshad Mehta using fake bank receipts to manipulate stock prices.</p>
+        <a href="https://wikipedia.orgा_भारतीय_शेयर_बाजार_घोटाला">Hindi Wikipedia</a>
+    </div>
+
+    <div class="card">
+        <h3>KYC Fraud / केवाईसी धोखाधड़ी</h3>
+        <p>Fake calls asking for OTP to "update" your bank account.</p>
+    </div>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,bn,te,mr,ta,gu,kn,ml,pa', // Major Indian Languages
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//://google.com"></script>
+
+</body>
+</html>
+
+
+
+
+
 import wikipediaapi
 
 def get_scam_info_multilingual():
