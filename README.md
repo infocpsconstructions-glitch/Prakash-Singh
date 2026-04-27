@@ -224,6 +224,35 @@ page = wikipedia.page(results[0])
 print("\nPage URL:", page.url)
 ```
 
+
+
+
+
+import wikipedia
+
+# 1. Search for a list of related titles
+search_query = "Financial frauds in India"
+results = wikipedia.search(search_query)
+print("Search Results:", results)
+
+if results:
+    # 2. Get a summary of the first result
+    # sentences=2 limits the summary length
+    summary = wikipedia.summary(results[0], sentences=2)
+    print("\nSummary:", summary)
+
+    # 3. Get full page details (URL, title, full content)
+    page = wikipedia.page(results[0])
+    print("\nPage Title:", page.title)
+    print("Page URL:", page.url)
+else:
+    print("No results found.")
+
+
+
+
+
+
 import streamlit as st
 
 # Data for Fraud Types and Actions
@@ -400,6 +429,155 @@ else:
 
 </body>
 </html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudInfo | Searchable Database</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        
+        /* Search Section */
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        #searchBar {
+            flex-grow: 1; padding: 15px; font-size: 18px; border: 2px solid #2c3e50;
+            border-radius: 25px; outline: none;
+        }
+        .search-btn {
+            padding: 10px 25px; background: #2c3e50; color: white; border: none;
+            border-radius: 25px; cursor: pointer; font-weight: bold;
+        }
+        .search-btn:hover { background: #e67e22; }
+
+        /* List Styling */
+        #fraudList { background: #fff; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+        #fraudList li { padding: 5px 0; border-bottom: 1px solid #eee; list-style: none; cursor: pointer; color: #2980b9; }
+        #fraudList li:hover { text-decoration: underline; }
+
+        /* Information Cards */
+        .info-card {
+            background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 5px solid #e74c3c;
+        }
+        .info-card h3 { color: #e74c3c; margin-top: 0; }
+        .tag { background: #eee; padding: 2px 10px; border-radius: 10px; font-size: 12px; color: #666; }
+        #noResults { display: none; text-align: center; color: #7f8c8d; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🇮🇳 Financial Fraud Database</h1>
+        <p>Search scams to get detailed Wikipedia information instantly.</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="searchBar" onkeyup="searchFraud()" placeholder="Search (e.g., Harshad, UPI, Ponzi)...">
+        <button class="search-btn" onclick="openWiki()">Open Wikipedia</button>
+    </div>
+
+    <!-- Quick List (Click any to search) -->
+    <ul id="fraudList">
+      <li onclick="setSearch('Phishing')">Phishing</li>
+      Identity Theft</li>
+      <li onclick="setSearch('Ponzi Schemes')">Ponzi Schemes</li>
+      <li onclick="setSearch('UPI')">UPI Frauds</li>
+    </ul>
+
+    <div id="noResults">No scams found matching your search.</div>
+
+    <div id="infoList">
+        <div class="info-card">
+            <span class="tag">Type 4.1</span>
+            <h3>Ponzi Schemes</h3>
+            <p>Investment fraud that uses money from new investors to pay earlier ones. Common in "Double your money" schemes.</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Type 4.3</span>
+            <h3>Identity Theft</h3>
+            <p>Stealing personal data to take loans or access bank accounts. Includes phishing and ATM card cloning.</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Type 4.14</span>
+            <h3>UPI-related Frauds</h3>
+            <p>Scammers send a "Request Money" link and trick users into entering their PIN to receive money.</p>
+        </div>
+
+        <div class="info-card">
+            <span class="tag">Section 420</span>
+            <h3>Cheating (Indian Penal Code)</h3>
+            <p>Legal provision for punishing financial dishonesty and cheating with up to 7 years in prison.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Search and Filter Function
+    function searchFraud() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let cards = document.getElementsByClassName('info-card');
+        let listItems = document.querySelectorAll('#fraudList li');
+        let visibleCount = 0;
+
+        // Filter Cards
+        for (let card of cards) {
+            let text = card.innerText.toLowerCase();
+            if (text.includes(input)) {
+                card.style.display = "block";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        }
+
+        // Filter Quick List
+        for (let item of listItems) {
+            item.style.display = item.innerText.toLowerCase().includes(input) ? "block" : "none";
+        }
+
+        // Show/Hide No Results message
+        document.getElementById('noResults').style.display = (visibleCount === 0) ? "block" : "none";
+    }
+
+    // 2. Open Wikipedia for the searched term
+    function openWiki() {
+        let query = document.getElementById('searchBar').value;
+        if (query.trim() !== "") {
+            window.open(`https://wikipedia.org{query}`, '_blank');
+        } else {
+            alert("Please type a scam name first!");
+        }
+    }
+
+    // 3. Helper to set search bar from list clicks
+    function setSearch(val) {
+        document.getElementById('searchBar').value = val;
+        searchFraud();
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -879,3 +1057,117 @@ else:
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Awareness Portal</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        
+        #google_translate_element { margin-bottom: 20px; text-align: right; }
+        #searchBar {
+            width: 100%; padding: 15px; font-size: 18px; border: 2px solid #2c3e50;
+            border-radius: 30px; margin-bottom: 20px; outline: none; box-sizing: border-box;
+        }
+
+        .info-card {
+            background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 5px solid #e74c3c;
+        }
+        .info-card h3 { margin-top: 0; color: #c0392b; }
+        .tag { background: #eee; padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+        
+        .btn-wiki {
+            display: inline-block; background: #2c3e50; color: white; padding: 10px 20px;
+            border-radius: 5px; text-decoration: none; margin-top: 15px; font-weight: bold; margin-right: 10px;
+        }
+        .btn-wiki:hover { background: #e67e22; }
+        .btn-report { background: #e74c3c; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🇮🇳 Indian Fraud Awareness Portal</h1>
+        <p>Research scams and stay safe. Call <b>1930</b> for emergencies.</p>
+    </header>
+
+    <div id="google_translate_element"></div>
+
+    <input type="text" id="searchBar" onkeyup="filterContent()" placeholder="Search by name (e.g., Harshad, Loan, KYC)...">
+
+    <div id="scamList">
+        <!-- Harshad Mehta -->
+        <div class="info-card">
+            <span class="tag">Historical Scam</span>
+            <h3>1992 Securities Scam (Harshad Mehta)</h3>
+            <p>A massive stock market scam that involved manipulating share prices using fake bank receipts.</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 Wikipedia Info</a>
+        </div>
+
+        <!-- Loan App Scam -->
+        <div class="info-card">
+            <span class="tag">Digital Fraud</span>
+            <h3>Illegal Loan App Scam</h3>
+            <p>Fake apps offering "instant loans" and then blackmailing users by accessing their contact lists and photos.</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 Wikipedia Info</a>
+            <a href="https://cybercrime.gov.in" target="_blank" class="btn-wiki btn-report">🚨 Report This</a>
+        </div>
+
+        <!-- Saradha Scam -->
+        <div class="info-card">
+            <span class="tag">Ponzi Scheme</span>
+            <h3>Saradha Group Financial Scandal</h3>
+            <p>A major financial fraud in East India where over 1.7 million investors lost money in a Ponzi scheme.</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 Wikipedia Info</a>
+        </div>
+
+        <!-- KYC Fraud -->
+        <div class="info-card">
+            <span class="tag">Active Threat</span>
+            <h3>KYC Update / Bank Fraud</h3>
+            <p>Calls or SMS claiming your bank account/SIM card is blocked. Never share your OTP with anyone.</p>
+            <a href="https://rbi.org.in" target="_blank" class="btn-wiki">🔍 RBI Sachet Portal</a>
+            <a href="https://cybercrime.gov.in" target="_blank" class="btn-wiki btn-report">🚨 Report This</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterContent() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let cards = document.getElementsByClassName('info-card');
+        for (let i = 0; i < cards.length; i++) {
+            let content = cards[i].innerText.toLowerCase();
+            cards[i].style.display = content.includes(input) ? "block" : "none";
+        }
+    }
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,bn,te,mr,ta,gu,kn,ml,pa', 
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+
+<script src="//://google.com"></script>
+
+</body>
+</html>
+
