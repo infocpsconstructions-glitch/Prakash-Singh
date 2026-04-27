@@ -1,3 +1,52 @@
+import streamlit as st
+
+# Data for Fraud Types and Actions
+fraud_data = {
+    "Phishing": {
+        "description": "Scammers send fake emails or messages to steal login details or personal info.",
+        "action": "Do not click links. Change your passwords immediately and report to your bank."
+    },
+    "Identity Theft": {
+        "description": "Someone uses your personal information to open accounts or make purchases.",
+        "action": "Freeze your credit reports and contact the [National Cyber Crime Reporting Portal](https://cybercrime.gov.in/)."
+    },
+    "Credit Card Fraud": {
+        "description": "Unauthorized transactions made using your credit card details.",
+        "action": "Block your card via your banking app and dispute the transactions with your bank."
+    },
+    "KYC Fraud": {
+        "description": "Fraudsters impersonate bank officials to steal OTPs or sensitive IDs under the guise of updating KYC.",
+        "action": "Never share OTPs. Note that official banks never ask for sensitive info over calls."
+    },
+    "Investment Scams": {
+        "description": "Promising high returns with little risk, often via fake apps or social media.",
+        "action": "Cease all payments and report the platform to financial regulators."
+    }
+}
+
+# Streamlit UI
+st.title("Financial Fraud Guide & Action Center")
+
+# Search Button / Input
+query = st.text_input("Search for a fraud type (e.g., 'Phishing', 'KYC'):")
+
+if query:
+    # Finding matches
+    results = {k: v for k, v in fraud_data.items() if query.lower() in k.lower()}
+    
+    if results:
+        for title, info in results.items():
+            st.subheader(f"Type: {title}")
+            st.write(f"**What it is:** {info['description']}")
+            st.warning(f"**Action to take:** {info['action']}")
+    else:
+        st.error("No fraud type found. Try searching for 'Credit Card' or 'Identity'.")
+else:
+    st.info("Enter a keyword above to find prevention steps.")
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
