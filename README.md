@@ -653,5 +653,118 @@ else:
     }
 </script>
 
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Awareness Portal</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        
+        /* Language and Search Controls */
+        #google_translate_element { margin-bottom: 20px; text-align: right; }
+        #searchBar {
+            width: 100%; padding: 15px; font-size: 18px; border: 2px solid #2c3e50;
+            border-radius: 30px; margin-bottom: 20px; outline: none; box-sizing: border-box;
+        }
+
+        /* Information Cards */
+        .info-card {
+            background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 5px solid #e74c3c;
+        }
+        .info-card h3 { margin-top: 0; color: #c0392b; }
+        .tag { background: #eee; padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+        
+        /* Buttons */
+        .btn-wiki {
+            display: inline-block; background: #2c3e50; color: white; padding: 10px 20px;
+            border-radius: 5px; text-decoration: none; margin-top: 15px; font-weight: bold;
+        }
+        .btn-wiki:hover { background: #e67e22; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🇮🇳 Indian Fraud Awareness Portal</h1>
+        <p>Translate, Search, and Research Financial Scams instantly.</p>
+    </header>
+
+    <!-- 1. Language Selector -->
+    <div id="google_translate_element"></div>
+
+    <!-- 2. Search Bar -->
+    <input type="text" id="searchBar" onkeyup="filterContent()" placeholder="Search by name, law, or keyword (e.g., Harshad, ATM, KYC)...">
+
+    <div id="scamList">
+        <!-- Scam: Securities Scam -->
+        <div class="info-card">
+            <span class="tag">Systemic Scam</span>
+            <h3>1992 Securities Scam (Harshad Mehta)</h3>
+            <p>A multi-crore systemic stock market scam that exploited loopholes in the banking system through fake bank receipts.</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 One-Click Wikipedia</a>
+        </div>
+
+        <!-- Scam: KYC Fraud -->
+        <div class="info-card">
+            <span class="tag">Digital Fraud</span>
+            <h3>KYC Update Fraud (केवाईसी धोखाधड़ी)</h3>
+            <p>Scammers impersonate bank officials and send SMS/calls threatening to block your account unless you share an OTP or download a "KYC app".</p>
+            <a href="https://cybercrime.gov.in" target="_blank" class="btn-wiki" style="background: #e74c3c;">🚨 Report to Authorities</a>
+        </div>
+
+        <!-- Scam: Saradha -->
+        <div class="info-card">
+            <span class="tag">Ponzi Scheme</span>
+            <h3>Saradha Group Financial Scandal</h3>
+            <p>A massive Ponzi scheme that collapsed in 2013, affecting over 1.7 million investors in East India.</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 One-Click Wikipedia</a>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script>
+    // Search Functionality
+    function filterContent() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let cards = document.getElementsByClassName('info-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            let content = cards[i].innerText.toLowerCase();
+            cards[i].style.display = content.includes(input) ? "block" : "none";
+        }
+    }
+
+    // Google Translate Initialization
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            // Major Indian languages: Hindi, Bengali, Telugu, Marathi, Tamil, Gujarati, Kannada, Malayalam, Punjabi
+            includedLanguages: 'hi,bn,te,mr,ta,gu,kn,ml,pa', 
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+
+<!-- Google Translate API -->
+<script src="//://google.com"></script>
+
+</body>
+</html>
+
+
 </body>
 </html>
