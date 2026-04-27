@@ -226,6 +226,38 @@ print("\nPage URL:", page.url)
 
 
 
+import wikipedia
+
+def get_fraud_info(query):
+    try:
+        # Search for the most relevant title
+        search_results = wikipedia.search(query)
+        if not search_results:
+            return "No results found."
+
+        # Get the first result's page
+        # Using auto_suggest=False prevents the library from changing your specific search
+        page = wikipedia.page(search_results[0], auto_suggest=False)
+        
+        return {
+            "title": page.title,
+            "summary": wikipedia.summary(search_results[0], sentences=2),
+            "url": page.url
+        }
+        
+    except wikipedia.exceptions.DisambiguationError as e:
+        # If there are multiple meanings, pick the first one
+        first_option = e.options[0]
+        return get_fraud_info(first_option)
+    except wikipedia.exceptions.PageError:
+        return "The page does not exist."
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+# Example Usage:
+print(get_fraud_info("1992 Indian stock market scam"))
+
+
 
 
 import wikipedia
@@ -246,7 +278,7 @@ if results:
     print("\nPage Title:", page.title)
     print("Page URL:", page.url)
 else:
-    print("No results found.")
+    print("results found.")
 
 
 
