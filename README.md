@@ -1,3 +1,18 @@
+import wikipedia
+
+# 1. Search for a list of related titles
+results = wikipedia.search("Financial frauds in India")
+print("Search Results:", results)
+
+# 2. Get a summary of the first result
+summary = wikipedia.summary(results[0], sentences=2)
+print("\nSummary:", summary)
+
+# 3. Get full page details (URL, title, full content)
+page = wikipedia.page(results[0])
+print("\nPage URL:", page.url)
+```
+
 import streamlit as st
 
 # Data for Fraud Types and Actions
