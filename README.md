@@ -1,5 +1,32 @@
 import wikipediaapi
 
+def get_scam_info_multilingual():
+    lang = input("Enter language code (hi/bn/te/mr/ta/en): ").strip().lower()
+    scam_topic = input("Enter the scam name (e.g., Harshad Mehta): ")
+
+    wiki = wikipediaapi.Wikipedia(
+        user_agent='ScamTracker/1.0 (contact: email@example.com)',
+        language=lang
+    )
+
+    page = wiki.page(scam_topic)
+
+    if page.exists():
+        print(f"\n--- {page.title} ---")
+        print(page.summary[:600] + "...")
+        print(f"\nRead more: {page.fullurl}")
+    else:
+        print(f"\nSorry, information for '{scam_topic}' is not available in '{lang}'.")
+
+get_scam_info_multilingual()
+
+
+
+
+
+
+import wikipediaapi
+
 def get_scam_summary(scam_name):
     # Set up the Wikipedia API (User agent is required by Wikimedia policy)
     wiki = wikipediaapi.Wikipedia(
