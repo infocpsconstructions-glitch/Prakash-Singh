@@ -1,3 +1,29 @@
+import wikipediaapi
+
+def get_scam_summary(scam_name):
+    # Set up the Wikipedia API (User agent is required by Wikimedia policy)
+    wiki = wikipediaapi.Wikipedia(
+        user_agent='EducationalScamBot (merlin@example.com)',
+        language='en'
+    )
+
+    page = wiki.page(scam_name)
+
+    if page.exists():
+        print(f"--- {page.title} ---")
+        # Get the first 500 characters of the summary
+        print(page.summary[:500] + "...")
+        print(f"\nRead full Wikipedia here: {page.fullurl}")
+    else:
+        print("Scam topic not found. Try '1992 Indian stock market scam' or 'Saradha Group'.")
+
+# Example usage
+get_scam_summary("1992 Indian stock market scam")
+
+
+
+
+
 import wikipedia
 
 # 1. Search for a list of related titles
