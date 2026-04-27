@@ -41,6 +41,117 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Fraud Awareness Portal | All Languages</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; padding: 20px; line-height: 1.6; color: #333; }
+        .container { max-width: 900px; margin: auto; }
+        header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; padding-bottom: 10px; }
+        
+        /* Language Widget & Search */
+        #google_translate_element { background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd; display: inline-block; }
+        #searchBar {
+            width: 100%; padding: 15px; font-size: 18px; border: 2px solid #2c3e50;
+            border-radius: 25px; margin-bottom: 20px; box-sizing: border-box; outline: none;
+        }
+
+        /* Scam Information Cards */
+        .card { 
+            background: white; border: 1px solid #ddd; padding: 20px; 
+            margin-bottom: 15px; border-radius: 10px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .card h3 { margin-top: 0; color: #d35400; }
+        .btn {
+            display: inline-block; background: #2c3e50; color: white; padding: 8px 16px;
+            text-decoration: none; border-radius: 5px; margin-top: 10px; font-size: 14px;
+        }
+        .btn:hover { background: #e67e22; }
+        .tag { font-size: 12px; background: #ebedef; padding: 3px 8px; border-radius: 4px; color: #7f8c8d; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🇮🇳 Indian Fraud Awareness Portal</h1>
+        <p>Complete information on financial scams in all Indian languages.</p>
+    </header>
+
+    <!-- One-Click Translation Widget -->
+    <div id="google_translate_element"></div>
+
+    <!-- Search Tool -->
+    <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search scam name, law, or keyword...">
+
+    <div id="fraudList">
+        <!-- 1992 Scam -->
+        <div class="card">
+            <span class="tag">HISTORICAL</span>
+            <h3>1992 Stock Market Scam (Harshad Mehta)</h3>
+            <p>A massive systemic fraud where bank receipts were forged to inflate stock prices. It led to the complete overhaul of Indian stock market regulations.</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn">📖 Full Wikipedia Info</a>
+        </div>
+
+        <!-- KYC Fraud -->
+        <div class="card">
+            <span class="tag">DIGITAL FRAUD</span>
+            <h3>KYC Update / Bank Account Fraud</h3>
+            <p>Fraudsters send SMS claiming your KYC is expired. They trick you into sharing OTP or installing screen-sharing apps like AnyDesk to steal money.</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn">📖 Learn Prevention</a>
+        </div>
+
+        <!-- Saradha Scam -->
+        <div class="card">
+            <span class="tag">PONZI SCHEME</span>
+            <h3>Saradha Group Financial Scandal</h3>
+            <p>A multi-billion dollar Ponzi scheme in East India that cheated millions of small investors promising high returns via "chit funds".</p>
+            <a href="https://wikipedia.org" target="_blank" class="btn">📖 Full Case Details</a>
+        </div>
+
+        <!-- UPI Fraud -->
+        <div class="card">
+            <span class="tag">PAYMENT FRAUD</span>
+            <h3>UPI QR Code & "Request Money" Fraud</h3>
+            <p>Scammers send a QR code claiming "Scan to receive money." Remember: You NEVER need to scan a QR code or enter a PIN to RECEIVE money.</p>
+            <a href="https://cybercrime.gov.in" target="_blank" class="btn" style="background:#c0392b;">🚨 Report This Scam</a>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript">
+    // Search Function
+    function searchFunction() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let cards = document.getElementsByClassName('card');
+        for (let i = 0; i < cards.length; i++) {
+            let title = cards[i].innerText.toLowerCase();
+            cards[i].style.display = title.includes(input) ? "block" : "none";
+        }
+    }
+
+    // Google Translate Initialization
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,bn,te,mr,ta,gu,kn,ml,pa', // Hindi, Bengali, Telugu, Marathi, Tamil, etc.
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+
+<!-- Official Google API Link (Corrected) -->
+<script type="text/javascript" src="//://google.com"></script>
+
+</body>
+</html>
+
 
 
 
