@@ -87,7 +87,7 @@
     <div id="google_translate_element"></div>
 
     <!-- Search Tool -->
-    <input type="text" id="searchBar" onkeyup="searchFunction()" placeholder="Search scam name, law, or keyword...">
+    <input type="text" id="searchButton" onkeyup="searchFunction()" placeholder="Search scam name, law, or keyword...">
 
     <div id="fraudList">
         <!-- 1992 Scam -->
@@ -215,8 +215,8 @@ examples/tutorial/flaskr/__init__.py
         <p>Type a keyword (e.g., "ATM", "Bank", "Identity") to find information.</p>
     </header>
 
-    <!-- The Search Bar -->
-<input type="text" id="searchBar" onkeyup="searchFraud()" placeholder="Search fraud types, keywords, or laws...">
+    <!-- The Search Button -->
+<input type="text" id="searchButton" onkeyup="searchFraud()" placeholder="Search fraud types, keywords, or laws...">
 
 <!-- The List to search through -->
 <ul id="fraudList">
@@ -303,8 +303,8 @@ examples/tutorial/flaskr/__init__.py
         header { text-align: center; margin-bottom: 30px; }
         
         /* Search Section */
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
-        #searchBar {
+        .search-Button { display: flex; gap: 10px; margin-bottom: 20px; }
+        #searchButton {
             flex-grow: 1; padding: 15px; font-size: 18px; border: 2px solid #2c3e50;
             border-radius: 25px; outline: none;
         }
@@ -409,7 +409,7 @@ examples/tutorial/flaskr/__init__.py
 
     // 2. Open Wikipedia for the searched term
     function openWiki() {
-        let query = document.getElementById('searchBar').value;
+        let query = document.getElementById('searchButton').value;
         if (query.trim() !== "") {
             window.open(`https://wikipedia.org{query}`, '_blank');
         } else {
@@ -417,9 +417,9 @@ examples/tutorial/flaskr/__init__.py
         }
     }
 
-    // 3. Helper to set search bar from list clicks
+    // 3. Helper to set search button from list clicks
     function setSearch(val) {
-        document.getElementById('searchBar').value = val;
+        document.getElementById('searchButton').value = val;
         searchFraud();
     }
 </script>
@@ -914,117 +914,3 @@ examples/tutorial/flaskr/__init__.py
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fraud Awareness Portal</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 900px; margin: auto; }
-        header { text-align: center; margin-bottom: 30px; }
-        
-        #google_translate_element { margin-bottom: 20px; text-align: right; }
-        #searchBar {
-            width: 100%; padding: 15px; font-size: 18px; border: 2px solid #2c3e50;
-            border-radius: 30px; margin-bottom: 20px; outline: none; box-sizing: border-box;
-        }
-
-        .info-card {
-            background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-left: 5px solid #e74c3c;
-        }
-        .info-card h3 { margin-top: 0; color: #c0392b; }
-        .tag { background: #eee; padding: 4px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
-        
-        .btn-wiki {
-            display: inline-block; background: #2c3e50; color: white; padding: 10px 20px;
-            border-radius: 5px; text-decoration: none; margin-top: 15px; font-weight: bold; margin-right: 10px;
-        }
-        .btn-wiki:hover { background: #e67e22; }
-        .btn-report { background: #e74c3c; color: white; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
-        <h1>🇮🇳 Indian Fraud Awareness Portal</h1>
-        <p>Research scams and stay safe. Call <b>1930</b> for emergencies.</p>
-    </header>
-
-    <div id="google_translate_element"></div>
-
-    <input type="text" id="searchBar" onkeyup="filterContent()" placeholder="Search by name (e.g., Harshad, Loan, KYC)...">
-
-    <div id="scamList">
-        <!-- Harshad Mehta -->
-        <div class="info-card">
-            <span class="tag">Historical Scam</span>
-            <h3>1992 Securities Scam (Harshad Mehta)</h3>
-            <p>A massive stock market scam that involved manipulating share prices using fake bank receipts.</p>
-            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 Wikipedia Info</a>
-        </div>
-
-        <!-- Loan App Scam -->
-        <div class="info-card">
-            <span class="tag">Digital Fraud</span>
-            <h3>Illegal Loan App Scam</h3>
-            <p>Fake apps offering "instant loans" and then blackmailing users by accessing their contact lists and photos.</p>
-            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 Wikipedia Info</a>
-            <a href="https://cybercrime.gov.in" target="_blank" class="btn-wiki btn-report">🚨 Report This</a>
-        </div>
-
-        <!-- Saradha Scam -->
-        <div class="info-card">
-            <span class="tag">Ponzi Scheme</span>
-            <h3>Saradha Group Financial Scandal</h3>
-            <p>A major financial fraud in East India where over 1.7 million investors lost money in a Ponzi scheme.</p>
-            <a href="https://wikipedia.org" target="_blank" class="btn-wiki">📖 Wikipedia Info</a>
-        </div>
-
-        <!-- KYC Fraud -->
-        <div class="info-card">
-            <span class="tag">Active Threat</span>
-            <h3>KYC Update / Bank Fraud</h3>
-            <p>Calls or SMS claiming your bank account/SIM card is blocked. Never share your OTP with anyone.</p>
-            <a href="https://rbi.org.in" target="_blank" class="btn-wiki">🔍 RBI Sachet Portal</a>
-            <a href="https://cybercrime.gov.in" target="_blank" class="btn-wiki btn-report">🚨 Report This</a>
-        </div>
-    </div>
-</div>
-
-<script>
-    function filterContent() {
-        let input = document.getElementById('searchBar').value.toLowerCase();
-        let cards = document.getElementsByClassName('info-card');
-        for (let i = 0; i < cards.length; i++) {
-            let content = cards[i].innerText.toLowerCase();
-            cards[i].style.display = content.includes(input) ? "block" : "none";
-        }
-    }
-
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: 'hi,bn,te,mr,ta,gu,kn,ml,pa', 
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }
-</script>
-
-<script src="//://google.com"></script>
-
-</body>
-</html>
-
