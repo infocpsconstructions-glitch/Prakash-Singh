@@ -1,3 +1,253 @@
+com.example.fraudapp
+│
+├── LoginActivity.java
+├── RegisterActivity.java
+├── MainActivity.java
+├── ReportFraudActivity.java
+├── FraudModel.java
+
+
+implementation 'com.google.firebase:firebase-auth:22.0.0'
+implementation 'com.google.firebase:firebase-database:20.0.0'
+implementation 'com.google.android.material:material:1.9.0'
+
+public class RegisterActivity extends AppCompatActivity {
+
+    EditText email, password;
+    Button registerBtn;
+    FirebaseAuth auth;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        registerBtn = findViewById(R.id.registerBtn);
+
+        auth = FirebaseAuth.getInstance();
+
+        registerBtn.setOnClickListener(v -> {
+            auth.createUserWithEmailAndPassword(
+                email.getText().toString(),
+                password.getText().toString()
+            ).addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    Toast.makeText(this,"Registered",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
+            });
+        });
+    }
+
+
+ public class LoginActivity extends AppCompatActivity {
+
+    EditText email, password;
+    Button loginBtn;
+    FirebaseAuth auth;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        loginBtn = findViewById(R.id.loginBtn);
+
+        auth = FirebaseAuth.getInstance();
+
+        loginBtn.setOnClickListener(v -> {
+            auth.signInWithEmailAndPassword(
+                email.getText().toString(),
+                password.getText().toString()
+            ).addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    startActivity(new Intent(this, MainActivity.class));
+                }
+            });
+        });
+    }
+}
+
+public class FraudModel {
+    public String title, description;
+
+    public FraudModel() {}
+
+    public FraudModel(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+}
+
+
+public class ReportFraudActivity extends AppCompatActivity {
+
+    EditText title, description;
+    Button submitBtn;
+    DatabaseReference dbRef;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_report);
+
+        title = findViewById(R.id.title);
+        description = findViewById(R.id.description);
+        submitBtn = findViewById(R.id.submitBtn);
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Frauds");
+
+        submitBtn.setOnClickListener(v -> {
+            String id = dbRef.push().getKey();
+            FraudModel fraud = new FraudModel(
+                title.getText().toString(),
+                description.getText().toString()
+            );
+
+            dbRef.child(id).setValue(fraud);
+            Toast.makeText(this,"Fraud Reported",Toast.LENGTH_SHORT).show();
+        });
+    }
+}
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    ListView listView;
+    ArrayList<String> fraudList;
+    DatabaseReference dbRef;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        listView = findViewById(R.id.listView);
+        fraudList = new ArrayList<>();
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Frauds");
+
+        dbRef.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot snapshot) {
+                fraudList.clear();
+                for(DataSnapshot data : snapshot.getChildren()){
+                    FraudModel f = data.getValue(FraudModel.class);
+                    fraudList.add(f.title + " - " + f.description);
+                }
+                listView.setAdapter(new ArrayAdapter<>(
+                    MainActivity.this,
+                    android.R.layout.simple_list_item_1,
+                    fraudList
+                ));
+            }
+
+            public void onCancelled(DatabaseError error) {}
+        });
+    }
+}
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/email"
+        android:hint="Email"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:hint="Password"/>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:text="Login"/>
+</LinearLayout>
+
+
+
+Android App → Send data → AI Model (Python API)
+            ← Get result ← (Fraud / Not Fraud)
+
+pip install flask scikit-learn pandas
+from flask import Flask, request, jsonify
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+
+app = Flask(_name_)
+
+# Dummy training data (replace with real dataset later)
+X = np.array([
+    [1000, 0], [5000, 1], [200, 0], [10000, 1]
+])  
+# [amount, is_foreign_transaction]
+
+y = np.array([0, 1, 0, 1])  # 0 = Safe, 1 = Fraud
+
+model = LogisticRegression()
+model.fit(X, y)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.json
+
+    amount = data['amount']
+    foreign = data['foreign']
+
+    prediction = model.predict([[amount, foreign]])[0]
+
+    result = "Fraud" if prediction == 1 else "Safe"
+
+    return jsonify({"result": result})
+
+if _name_ == '_main_':
+    app.run(debug=True)
+
+python app.py
+http://127.0.0.1:5000/predict
+implementation 'com.android.volley:volley:1.2.1'
+
+
+
+public void checkFraud(int amount, int foreign) {
+
+    String url = "http://YOUR_IP:5000/predict";
+
+    RequestQueue queue = Volley.newRequestQueue(this);
+
+    JSONObject json = new JSONObject();
+    try {
+        json.put("amount", amount);
+        json.put("foreign", foreign);
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+
+    JsonObjectRequest request = new JsonObjectRequest(
+        Request.Method.POST, url, json,
+        response -> {
+            try {
+                String result = response.getString("result");
+                Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        },
+        error -> Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+    );
+
+    queue.add(request);
+}
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
